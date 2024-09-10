@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import operatorRoutes from './routes/operatorRoutes';
 import clientRoutes from './routes/clientRoutes';
-import sequelize from './sequelize/db';
+import  sequelize  from './sequelize/db'; // Altere para importação nomeada
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -7,8 +7,15 @@ export const createOperator = async (req: Request, res: Response) => {
     const { name } = req.body;
 
     try {
-        // Crie o novo operador sem especificar o ID
+        // Conta quantos operadores existem
+        const { count } = await Operator.findAndCountAll();
+
+        // O próximo ID disponível será o número atual de operadores + 1
+        const newId = count + 1;
+
+        // Cria o novo operador com o ID padrão
         const newOperator = await Operator.create({
+            id: newId, // O ID pode ser gerado ou definido manualmente
             name,
         });
 
@@ -18,6 +25,8 @@ export const createOperator = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Erro ao criar operador' });
     }
 };
+
+
 
 
 export const getOperators = async (req: Request, res: Response) => {

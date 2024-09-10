@@ -7,6 +7,7 @@ import {
     updateClient,
     deleteClient,
     redistributeClients,
+    getRedistributedClients
 } from '../controllers/clientControllers';
 import multer from 'multer';
 
@@ -19,5 +20,6 @@ router.post('/import', upload.single('file'), importClients); // Importar client
 router.put('/:id', updateClient); // Atualizar cliente
 router.delete('/:id', deleteClient);
 router.post('/redistribute', redistributeClients); // Redistribuir clientes
+router.get('/redistributed', getRedistributedClients); // Nova rota para visualizar clientes redistribuídos
 
 export default router;

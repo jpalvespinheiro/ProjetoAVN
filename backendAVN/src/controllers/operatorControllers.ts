@@ -1,21 +1,16 @@
 import { Request, Response } from 'express';
 import Operator from '../models/Operator';
 
-
-
 export const createOperator = async (req: Request, res: Response) => {
     const { name } = req.body;
 
     try {
-        // Conta quantos operadores existem
         const { count } = await Operator.findAndCountAll();
 
-        // O próximo ID disponível será o número atual de operadores + 1
         const newId = count + 1;
 
-        // Cria o novo operador com o ID padrão
         const newOperator = await Operator.create({
-            id: newId, // O ID pode ser gerado ou definido manualmente
+            id: newId,
             name,
         });
 
@@ -25,8 +20,6 @@ export const createOperator = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Erro ao criar operador' });
     }
 };
-
-
 
 
 export const getOperators = async (req: Request, res: Response) => {

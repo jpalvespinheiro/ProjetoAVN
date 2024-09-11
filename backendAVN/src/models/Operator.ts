@@ -1,11 +1,11 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '../sequelize/db'; // Verifique se este caminho está correto
+import sequelize from '../sequelize/db';
 
 class Operator extends Model {
-    id!: number; // O "public" é desnecessário aqui
+    id!: number;
     name!: string;
 
-    // As propriedades de timestamps são geradas automaticamente pelo Sequelize
+
     createdAt!: Date;
     updatedAt!: Date;
 }
@@ -14,19 +14,19 @@ Operator.init(
     {
         id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true, // Permitir auto incremento
+            autoIncrement: true,
             primaryKey: true,
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,    // O nome é obrigatório
+            allowNull: false,
         },
     },
     {
-        sequelize,               // Conexão do banco de dados
-        modelName: 'Operator',    // Nome do modelo
-        tableName: 'Operators',   // Nome da tabela no banco de dados
-        timestamps: true,         // Cria automaticamente "createdAt" e "updatedAt"
+        sequelize,
+        modelName: 'Operator',
+        tableName: 'Operators', 
+        timestamps: true,   
     }
 );
 

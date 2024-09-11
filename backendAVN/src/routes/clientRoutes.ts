@@ -1,4 +1,3 @@
-// No seu arquivo clientRoutes.ts
 import express from 'express';
 import {
     importClients,
@@ -12,14 +11,14 @@ import {
 import multer from 'multer';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' }); // Configuração do multer
+const upload = multer({ dest: 'uploads/' });
 
-router.get('/', getClients);  // Rota para obter todos os clientes
-router.post('/', createClient); // Criar cliente
-router.post('/import', upload.single('file'), importClients); // Importar clientes com multer
-router.put('/:id', updateClient); // Atualizar cliente
+router.get('/', getClients);
+router.post('/', createClient);
+router.post('/import', upload.single('file'), importClients);
+router.put('/:id', updateClient);
 router.delete('/:id', deleteClient);
-router.post('/redistribute', redistributeClients); // Redistribuir clientes
-router.get('/redistributed', getRedistributedClients); // Nova rota para visualizar clientes redistribuídos
+router.post('/redistribute', redistributeClients);
+router.get('/redistributed', getRedistributedClients);
 
 export default router;

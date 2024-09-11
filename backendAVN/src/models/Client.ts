@@ -2,8 +2,8 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../sequelize/db';
 
 class Client extends Model {
-    public id!: number; // Adicione esta linha
-    public name!: string; // Adicione esta linha
+    public id!: number; 
+    public name!: string;
     public birth_date!: Date;
     public value!: number;
     public email!: string;

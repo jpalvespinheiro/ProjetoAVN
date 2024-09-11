@@ -5,7 +5,7 @@ import fs from 'fs';
 import * as fastcsv from 'fast-csv';
 import multer from 'multer';
 
-// Importar clientes do CSV
+// L[ogica construida para importar clientes em CSV
 export const importClients = async (req: Request, res: Response) => {
     if (!req.file) {
         return res.status(400).json({ error: 'File not provided' });
@@ -21,11 +21,9 @@ export const importClients = async (req: Request, res: Response) => {
             const operators = await Operator.findAll();
             const operatorCount = operators.length;
 
-            // Distribuição sequencial
             for (let i = 0; i < fileRows.length; i++) {
                 let operatorId: number | null = null;
                 
-                // Atribuir um operador se existir
                 if (operatorCount > 0) {
                     operatorId = operators[i % operatorCount].id;
                 }
@@ -37,8 +35,6 @@ export const importClients = async (req: Request, res: Response) => {
 };
 
 
-
-// Obter todos os clientes
 export const getClients = async (req: Request, res: Response) => {
     try {
         const clients = await Client.findAll();
@@ -48,7 +44,6 @@ export const getClients = async (req: Request, res: Response) => {
     }
 };
 
-// Criar um novo cliente
 export const createClient = async (req: Request, res: Response) => {
     const { name, birth_date, value, email } = req.body;
 
@@ -71,7 +66,7 @@ export const createClient = async (req: Request, res: Response) => {
     }
 };
 
-// Atualizar cliente
+
 export const updateClient = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
@@ -93,7 +88,7 @@ export const updateClient = async (req: Request, res: Response) => {
     }
 };
 
-// Deletar cliente
+
 export const deleteClient = async (req: Request, res: Response) => {
     const { id } = req.params;
 
@@ -106,7 +101,7 @@ export const deleteClient = async (req: Request, res: Response) => {
     }
 };
 
-// Redistribuir clientes
+
 export const redistributeClients = async (req: Request, res: Response) => {
     const operators = await Operator.findAll();
     const clients = await Client.findAll();
@@ -119,13 +114,13 @@ export const redistributeClients = async (req: Request, res: Response) => {
     res.sendStatus(200);
 };
 
-// Obter clientes redistribuídos
+
 export const getRedistributedClients = async (req: Request, res: Response) => {
     try {
         const clients = await Client.findAll({
             include: [{
                 model: Operator,
-                as: 'operator', // Certifique-se de que o alias esteja correto
+                as: 'operator', 
             }],
         });
         return res.status(200).json(clients);

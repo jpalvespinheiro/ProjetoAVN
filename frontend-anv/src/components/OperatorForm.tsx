@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 
 interface OperatorFormProps {
   onSave: (name: string) => void;
-  operator: { name: string } | null;
+  operator: { id: number; name: string } | null;
 }
 
-const OperatorForm = ({ onSave, operator }: OperatorFormProps) => {
+const OperatorForm: React.FC<OperatorFormProps> = ({ onSave, operator }) => {
   const [name, setName] = useState('');
 
   useEffect(() => {
@@ -17,24 +17,25 @@ const OperatorForm = ({ onSave, operator }: OperatorFormProps) => {
     }
   }, [operator]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     onSave(name);
     setName('');
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box display="flex" flexDirection="column" gap={2}>
+      <Box display="flex" flexDirection="column" alignItems="center">
         <TextField
           label="Nome do Operador"
           variant="outlined"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          style={{ marginBottom: '20px', width: '100%' }}
         />
-        <Button variant="contained" color="primary" type="submit">
-          {operator ? 'Atualizar' : 'Adicionar'}
+        <Button type="submit" variant="contained" color="primary" style={{ width: '100%' }}>
+          {operator ? 'Atualizar Operador' : 'Adicionar Operador'}
         </Button>
       </Box>
     </form>

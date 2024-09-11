@@ -1,35 +1,33 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
-
-interface Operator {
-  id: number;
-  name: string;
-}
+import React from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Button } from '@mui/material';
 
 interface OperatorsTableProps {
-  operators: Operator[];
+  operators: { id: number; name: string }[];
   onDelete: (id: number) => void;
-  onEdit: (operator: Operator) => void;
+  onEdit: (operator: { id: number; name: string }) => void;
 }
 
-const OperatorsTable = ({ operators, onDelete, onEdit }: OperatorsTableProps) => {
+const OperatorsTable: React.FC<OperatorsTableProps> = ({ operators, onDelete, onEdit }) => {
   return (
     <TableContainer>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Nome</TableCell>
-            <TableCell>Ações</TableCell>
+            <TableCell>
+              <TableSortLabel>Nome do Operador</TableSortLabel>
+            </TableCell>
+            <TableCell align="right">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {operators.map((operator) => (
             <TableRow key={operator.id}>
               <TableCell>{operator.name}</TableCell>
-              <TableCell>
-                <Button variant="contained" color="secondary" onClick={() => onEdit(operator)}>
+              <TableCell align="right">
+                <Button variant="outlined" color="primary" onClick={() => onEdit(operator)}>
                   Editar
                 </Button>
-                <Button variant="contained" color="error" onClick={() => onDelete(operator.id)}>
+                <Button variant="outlined" color="secondary" onClick={() => onDelete(operator.id)} style={{ marginLeft: '10px' }}>
                   Excluir
                 </Button>
               </TableCell>

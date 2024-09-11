@@ -23,8 +23,9 @@ Este projeto é um sistema de gerenciamento de clientes e operadores desenvolvid
 
 1. **Clone o repositório:**
    ```bash
-   git clone <URL do repositório>
-   cd <pasta do repositório>
+   https://github.com/jpalvespinheiro/ProjetoAVN.git
+
+   cd backendAVN
 
 
 2. **Instale as Dependências:**

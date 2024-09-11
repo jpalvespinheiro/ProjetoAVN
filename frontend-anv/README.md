@@ -21,8 +21,9 @@ Este projeto é a interface do usuário para o sistema de gerenciamento de clien
 
 1. **Clone o repositório:**
    ```bash
-   git clone <URL do repositório>
-   cd <pasta do repositório>
+   git clone https://github.com/jpalvespinheiro/ProjetoAVN.git
+
+   cd frontend-avn
 
 
 2. **Instale as Dependências:**

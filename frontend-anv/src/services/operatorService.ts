@@ -1,8 +1,5 @@
 import api from './api';
 
-// operatorService.ts
-import axios from 'axios';
-
 export const getOperators = async () => {
   return await api.get('/api/operators');
 };

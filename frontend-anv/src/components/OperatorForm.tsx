@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 interface OperatorFormProps {
   onSave: (name: string) => void;
@@ -8,6 +9,8 @@ interface OperatorFormProps {
 
 const OperatorForm: React.FC<OperatorFormProps> = ({ onSave, operator }) => {
   const [name, setName] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (operator) {
@@ -23,6 +26,10 @@ const OperatorForm: React.FC<OperatorFormProps> = ({ onSave, operator }) => {
     setName('');
   };
 
+  const handleBack = () => {
+    navigate('/'); // Navega para a página principal
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Box display="flex" flexDirection="column" alignItems="center">
@@ -34,9 +41,14 @@ const OperatorForm: React.FC<OperatorFormProps> = ({ onSave, operator }) => {
           required
           style={{ marginBottom: '20px', width: '100%' }}
         />
-        <Button type="submit" variant="contained" color="primary" style={{ width: '100%' }}>
-          {operator ? 'Atualizar Operador' : 'Adicionar Operador'}
-        </Button>
+        <Box display="flex" justifyContent="space-between" width="100%">
+          <Button type="submit" variant="contained" color="primary" style={{ width: '48%' }}>
+            {operator ? 'Atualizar Operador' : 'Adicionar Operador'}
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleBack} style={{ width: '48%' }}>
+            Voltar
+          </Button>
+        </Box>
       </Box>
     </form>
   );

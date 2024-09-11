@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { createOperator, updateOperator, deleteOperator, getOperators } from './services/operatorService'; 
-import { createClient, updateClient, deleteClient, getClients } from './services/clientService';
-import { collumClients } from './types'; // Importe o Client do novo arquivo
+import { createClient, updateClient, deleteClient, getClients, importClientsCSV } from './services/clientService'; // Adicionar importação CSV
 import OperatorsTable from './components/OperatorsTable';
 import OperatorForm from './components/OperatorForm';
-import Home from './components/Home'; 
 import ClientForm from './components/ClientForm';
 import ClientList from './components/ClientList';
 import { Container, Paper, Snackbar, Typography, Button } from '@mui/material'; 
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-
-// O restante do código permanece o mesmo...
-
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -27,7 +22,7 @@ interface Client {
 
 const App = () => {
   const [operators, setOperators] = useState<{ id: number; name: string }[]>([]);
-  const [clients, setClients] = useState<Client[]>([]); // Estado para os clientes
+  const [clients, setClients] = useState<Client[]>([]);
   const [currentClient, setCurrentClient] = useState<Client | null>(null);
   const [currentOperator, setCurrentOperator] = useState<{ id: number; name: string } | null>(null);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -35,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     fetchOperators();
-    fetchClients(); // Buscar clientes
+    fetchClients();
   }, []);
 
   const fetchOperators = async () => {
@@ -44,7 +39,7 @@ const App = () => {
   };
 
   const fetchClients = async () => {
-    const response = await getClients(); // Obter clientes
+    const response = await getClients();
     setClients(response.data);
   };
 
@@ -100,6 +95,19 @@ const App = () => {
     setCurrentClient(client);
   };
 
+  // Essa função foi criada para importar os clientes via CSV
+  const handleFileUpload = async (file: File) => {
+    try {
+      await importClientsCSV(file);
+      setSnackbarMessage('Clientes importados com sucesso!');
+      setOpenSnackbar(true);
+      fetchClients();
+    } catch (error) {
+      setSnackbarMessage('Erro ao importar clientes!');
+      setOpenSnackbar(true);
+    }
+  };
+
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
@@ -134,7 +142,7 @@ const App = () => {
             </Paper>
           } />
           <Route path="/operators" element={
-            <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+            <Paper elevation={3} style={{ padding: '30px', marginBottom: '20px' }}>
               <Typography variant="h4" align="center" style={{ color: '#1976d2' }}>
                 Gerenciar Operadores
               </Typography>
@@ -146,7 +154,7 @@ const App = () => {
             </Paper>
           } />
           <Route path="/clients" element={
-            <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+            <Paper elevation={3} style={{ padding: '30px', marginBottom: '30px' }}>
               <Typography variant="h4" align="center" style={{ color: '#1976d2' }}>
                 Gerenciar Clientes
               </Typography>
@@ -154,6 +162,7 @@ const App = () => {
                 client={currentClient}
                 onSave={currentClient ? (client) => handleClientUpdate(currentClient.id!, client) : handleClientCreate}
                 setCurrentClient={setCurrentClient}
+                onFileUpload={handleFileUpload}
               />
               <ClientList clients={clients} onDelete={handleClientDelete} onEdit={handleClientEdit} />
             </Paper>

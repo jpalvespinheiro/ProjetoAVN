@@ -23,12 +23,20 @@ export const importClients = async (req: Request, res: Response) => {
 
             // Distribuição sequencial
             for (let i = 0; i < fileRows.length; i++) {
-                const operatorId = operators[i % operatorCount].id;
+                let operatorId: number | null = null;
+                
+                // Atribuir um operador se existir
+                if (operatorCount > 0) {
+                    operatorId = operators[i % operatorCount].id;
+                }
+                
                 await Client.create({ ...fileRows[i], operator_id: operatorId });
             }
             res.sendStatus(200);
         });
 };
+
+
 
 // Obter todos os clientes
 export const getClients = async (req: Request, res: Response) => {

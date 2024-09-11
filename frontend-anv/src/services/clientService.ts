@@ -17,3 +17,22 @@ export const updateClient = async (id: number, client: { name: string; birthDate
 export const deleteClient = async (id: number) => {
   return await api.delete(`/clients/${id}`);
 };
+
+export const importClientsCSV = async (file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return await api.post('/clients/import', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const redistributeClients = async () => {
+  try {
+    await api.post('/redistribute');
+  } catch (error) {
+    console.error('Error redistributing clients:', error);
+  }
+};

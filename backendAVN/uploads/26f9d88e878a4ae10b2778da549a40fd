@@ -1,0 +1,6 @@
+name,birth_date,value,email
+Cliente 1,1990-09-10,100.5,cliente1@example.com
+Cliente 2,1991-08-15,200.0,cliente2@example.com
+Cliente 3,1989-05-25,150.0,cliente3@example.com
+Cliente 4,1992-12-30,300.0,cliente4@example.com
+Cliente 5,1993-07-20,250.0,cliente5@example.com

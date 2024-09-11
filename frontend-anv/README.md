@@ -1,4 +1,4 @@
-# Projeto de Backend - Sistema de Gerenciamento de Clientes e Operadores
+# Projeto de fRONTEND - Sistema de Gerenciamento de Clientes e Operadores
 
 ## Descrição
 
